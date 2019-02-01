@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class CreatureWorldThing {
 
@@ -46,11 +47,6 @@ public class CreatureWorldThing {
         return id;
     }
 
-    /*
-    public void setMyColor(int r, int g, int b) {
-     setMyColor = color(r, g, b);
-    }
-    */
 
 
     public void display() {
@@ -63,7 +59,7 @@ public class CreatureWorldThing {
 
     }
 
-    public void interact(CreatureWorldThing[] things) {
+    public void interact(ArrayList<CreatureWorldThing> things) {
 
     }
 }

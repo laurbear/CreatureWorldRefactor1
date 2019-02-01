@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class Thing2 extends CreatureWorldThing { //chick
 
@@ -38,12 +39,12 @@ public class Thing2 extends CreatureWorldThing { //chick
 
     }
 
-    public void interact(CreatureWorldThing[] things) {
+    public void interact(ArrayList<CreatureWorldThing> things) {
 
         for (int i = 0; i < 7; i++) {
 
-            if (things[i].getID() != getID()) {
-                if(app.dist(things[i].getX(), things[i].getY(), getX(), getY()) < 50) {
+            if (things.get(i).getID() != getID()) {
+                if(app.dist(things.get(i).getX(), things.get(i).getY(), getX(), getY()) < 50) {
                     app.decrementCount();
 
                 }

@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import java.util.*;
 
 public class Thing1 extends CreatureWorldThing {
 
@@ -37,11 +38,11 @@ public class Thing1 extends CreatureWorldThing {
 
     }
 
-    public void interact(CreatureWorldThing[] things) {
-        for (int i = 0; i < things.length; i++) {
+    public void interact(ArrayList<CreatureWorldThing> things) {
+        for (int i = 0; i < things.size(); i++) {
 
-            if (things[i].getID() != getID()) {
-                if(app.dist(things[i].getX(), things[i].getY(), getX(), getY()) < 50) {
+            if (things.get(i).getID() != getID()) {
+                if(app.dist(things.get(i).getX(), things.get(i).getY(), getX(), getY()) < 50) {
                     setY((int) app.random(app.height));
                 }
             }

@@ -1,13 +1,15 @@
 import processing.core.PApplet;
 import ddf.minim.AudioPlayer;
 import ddf.minim.*;
+import java.util.*;
 
 
 public class CreatureWorldApp extends PApplet {
 
     private static CreatureWorldApp app;
     private int count = 0;
-    private CreatureWorldThing[] things;
+    private ArrayList<CreatureWorldThing> things;
+
 
     public CreatureWorldApp() {
         super();
@@ -30,6 +32,10 @@ public class CreatureWorldApp extends PApplet {
 
     }
 
+    public void mouseClicked() {
+        things.add(new Thing3(10, 350, 200));
+    }
+
 
     public int getCount() {
         return count;
@@ -46,26 +52,28 @@ public class CreatureWorldApp extends PApplet {
 
     public void setup() {
 
-
-        things = new CreatureWorldThing[10];
+        things = new ArrayList<CreatureWorldThing>();
         //GRASS OBSTACLES
 
         // FIX THIS
-        things[0] = new Thing1(0, width/2, height/2, 1);
-        things[1] = new Thing1(1, width/3, height/4, -3);
-        things[2] = new Thing1(2, 100, 500, 1);
-        things[3] = new Thing1(3, width/4, 375, -4);
-        things[4] = new Thing1(4, width/5, 500, 1);
-        things[5] = new Thing1(5,510, 560, -1);
-        things[6] = new Thing1(6,width/7, 230, 2);
-        things[7] = new Thing1(7,470, 320, -5);
+        things.add(new Thing1(0, width/2, height/2, 1));
+        things.add(new Thing1(1, width/3, height/4, -3));
+        things.add(new Thing1(2, 100, 500, 1));
+        things.add(new Thing1(3, width/4, 375, -4));
+        things.add(new Thing1(4, width/5, 500, 1));
+        things.add(new Thing1(5,510, 560, -1));
+        things.add(new Thing1(6,width/7, 230, 2));
+        things.add(new Thing1(7,470, 320, -5));
+
 
 
         //CHICK
-        things[8] = new Thing2(8);
+        //things[8] = new Thing2(8);
+        things.add(new Thing2 (8));
 
         //EGGS
-        things[9] = new Thing3(9, 200, 500);
+        //things[9] = new Thing3(9, 200, 500);
+        things.add(new Thing3(9, 200, 500));
 
     }
 
@@ -75,14 +83,16 @@ public class CreatureWorldApp extends PApplet {
 
 
         if (count >= 0) {
-            for (int i = 0; i < things.length; i++) {
-                things[i].display();
-                things[i].behave();
-                things[i].interact(things);
+            for (int i = 0; i < things.size(); i++) {
+                things.get(i).display();
+                things.get(i).behave();
+                things.get(i).interact(things);
+
             }
             fill(255, 186, 212);
-            textSize(15);
-            text("collect the eggs. hit the blocks and you lose 2 eggs!", 210, 70);
+            textSize(13);
+            text("collect the eggs, and click to add more.", 340, 70);
+            text("hit the blocks and you lose 2 eggs!", 370, 90);
 
         }
 
@@ -110,12 +120,21 @@ public class CreatureWorldApp extends PApplet {
             count = 0;
         }
 
-        for (int i = 0; i < things.length; i++) {
-            things[i].display();
-            things[i].behave();
-            things[i].interact(things);
+        for (int i = 0; i < things.size(); i++) {
+            things.get(i).display();
+            things.get(i).behave();
+            things.get(i).interact(things);
 
         }
+
+        for(int j = things.size() - 1; j > 9; j--) {
+            app.resetEggs(things.get(j));
+        }
+
+    }
+
+    public void resetEggs(CreatureWorldThing thing) {
+        things.remove(thing);
 
     }
 
